@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tom Craven - Photo Shapes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="article">
+        <h1>
+            Photo Shapes
+        </h1>
+        <h2>
+            1. Motivation
+        </h2>
+        <p>
+            During my career break in 2024, I wanted to focus on my personal projects. I love model
+            railways, and decided to focus on building a layout in my basement. I want to recreate
+            a real-life railway station location as accurately as possible in model form, but the
+            only information I have is a collection of old photographs.
+        </p>
+        <p>
+            Stated another way, the problem I wanted to solve is:
+            <blockquote>
+                Given a set of photographs of a
+                building taken for various viewpoints, accurately derive the shape and dimensions of
+                the building, and create a 3D model.
+            </blockquote>
+        </p>
+        <p>
+            I soon realized that the tools I needed didn't exist - so I set about creating them myself.
+        </p>
+
+        <div class="image-container">
+            <a href="images/photo-shapes/stokesley-photo-model-1.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/stokesley-photo-model-1.jpg" />
+            </a>
+            <div class="image-caption">
+                <b>Left:</b> A photograph of Stokesley Station near Middlesbrough, UK, taken in 1954.
+                <b>Right:</b> My laser cut card model of the station building in OO scale (1:72.6).
+                My Photo Shapes software helped me to determine accurate building dimensions.
+            </div>
+        </div>
+
+        <h2>
+            2. Approaches
+        </h2>
+
+        <h3>
+            2.1 SketchUp Match Photo
+        </h3>
+        <p>
+            Back in the early 2000s I used a 3D design software called
+            <a href="https://www.sketchup.com/en">SketchUp</a>. It still exists today, and is a great
+            application for 3D modeling. It has a unique feature called Match Photo, that allows the
+            user to create 3D models by tracing lines over photographs. Here are some YouTube videos
+            that demonstrate the process:
+            <ul>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=ogGlGiu5VBM" target="_blank">
+                        Creating Models from Multiple Photos in Match Photo in SketchUp
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=gX4C9To9Oiw" target="_blank">
+                        SketchUp Training Series: Match Photo Part 2
+                    </a>
+                </li>
+            </ul>
+        </p>
+
+        <div class="image-container">
+            <a href="images/photo-shapes/sketchup-screenshots.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/sketchup-screenshots.jpg" />
+            </a>
+            <div class="image-caption">
+                SketchUp user interface, taken from the second video above.
+                <b>Left:</b> Lining up axis lines to determine the orientation and field of view
+                of the camera.
+                <b>Right:</b> Tracing out the shape of the building along the x, y and z axes
+                to create the 3D model.
+            </div>
+        </div>
+
+        <p>
+            I attempted to use SketchUp Match Photo myself, and found that it had several limitations:
+            <ul>
+                <li>
+                    For each photograph, the user must manually line up axis lines to determine the
+                    orientation and field of view of the perspective camera. The camera view is very
+                    sensitive to small changes in the positions of the axis lines, and it is difficult
+                    to line everything up perfectly.
+                </li>
+                <li>
+                    As the user adds more photographs, it becomes increasingly difficult to line up new
+                    photographs with the existing 3D model that was drawn from the first photograph. This
+                    is because variations in building dimensions that are not noticeable from a particular
+                    viewpoint in one photograph can be significant from a different viewpoint in another
+                    photograph.
+                </li>
+                <li>
+                    In order to get an accurate model, the user has to swap back and forth between multiple
+                    photographs, making small adjustments to sizes and shapes of the 3D model and also
+                    adjusting the camera perspectives to try to get everything to line up.
+                </li>
+            </ul>
+            If you watch the videos, you can hear the presenters acknowledging some of these
+            problems as they demonstrate the functionality. In the first video, the presenter
+            actually gives up when he finds that the model doesn't match the second photo properly!
+        </p>
+
+        <h3>
+            2.2 Photogrammetry, NeRFs, and Gaussian Splats
+        </h3>
+        <p>
+            This <a href="https://www.spatial.capital/blog-posts/scene-representation" target="_blank">article</a> gives a
+            good overview of these 3D reconstruction technologies.
+        </p>
+        <p>
+            Unfortunately, they are not suitable for my use case for the following reasons:
+            <ul>
+                <li>
+                    Many images are required to produce accurate 3D models. These techniques require
+                    a minimum of hundreds of images taken from many different angles to achieve a
+                    good level of accuracy. For my model railway buildings, I have between
+                    one and twenty photographs to work with per building.
+                </li>
+                <li>
+                    The generated models tend to have a wobbly appearance, rather than flat surfaces.
+                    For my application - buildings with relatively simple geometric shapes - this is
+                    not ideal. I would likely have to process the model after it is generated to
+                    clean it up in order for it to be useful as a guide for a physical model.
+                </li>
+            </ul>
+        </p>
+
+        <h3>
+            2.3 Photo Matching Using Optimization
+        </h3>
+        <p>
+            Having considered the options, I felt I needed a technique that fell somewhere in the middle
+            ground between the fully manual SketchUp approach, and the fully automated but data-hungry
+            photogrammetry approach. I wanted an application that worked in a similar way to SketchUp,
+            but automated the difficult and tedious positioning of the cameras and adjustment
+            of the model dimensions.
+        </p>
+        <p>
+            I came up with the following idea: If I draw lines on photographs along the edges of walls,
+            roofs, windows, doors, chimneys, can I use optimization to derive the position, orientation,
+            and field of view of the camera? Furthermore, given several photos, can I derive the
+            optimal dimensions of a building such that the dimensions cause each photo view to match up
+            as closely as possible with the 3D model?
+        </p>
+        <p>
+            The answer it turns out is yes, and this is how Photo Shapes works.
+        </p>
+
+        <h2>3. Photo Shapes</h2>
+
+        <h3>3.1 Photo Match Lines</h3>
+
+        <div class="image-container">
+            <a href="images/photo-shapes/ps-lines-1.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/ps-lines-1.jpg" />
+            </a>
+            <a href="images/photo-shapes/ps-lines-2.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/ps-lines-2.jpg" />
+            </a>
+            <a href="images/photo-shapes/ps-lines-3.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/ps-lines-3.jpg" />
+            </a>
+            <a href="images/photo-shapes/ps-lines-4.jpg" target="_blank">
+                <img class="image" src="images/photo-shapes/ps-lines-4.jpg" />
+            </a>
+            <div class="image-caption">
+                Photo Shapes user interface, showing the photo match lines drawn over different
+                photographs of the station building. These lines, along with the 3D model, will
+                determine the camera position, orientation and field of view for each photograph.
+            </div>
+        </div>
+
+        <h3>3.2 Parameterized 3D Shapes</h3>
+
+        <h3>3.3 Linking Photo Match Lines to Shape Edges</h3>
+
+        <h3>3.4 Optimizing Camera Position</h3>
+
+        <h3>3.5 Optimizing Shape Parameters</h3>
+
+        <h3>3.6 Texture Mapping From Photographs</h3>
+
+        <h3>3.7 Exporting 3D Models</h3>
+
+    </div>
+    
+</body>
+
+</html>

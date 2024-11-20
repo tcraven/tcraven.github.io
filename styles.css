@@ -5,6 +5,9 @@ body {
 h1 {
     text-align: center;
 }
+blockquote {
+    font-weight: bold;
+}
 .article {
     max-width: 1000px;
     margin-left: auto;
@@ -42,4 +45,21 @@ h1 {
     padding: 10px;
     text-align: center;
     color: #222;
+}
+
+.image-container {
+    border: solid 1px #000;
+    overflow: hidden;
+    width: 100%;
+}
+.image {
+    width: 100%;
+}
+.image-caption {
+    /* width: 100%; */
+    background-color: #EEE;
+    margin-top: -5px;
+    /* border: solid 1px #DDD; */
+    padding: 5px;
+    font-size: 18px;
 }

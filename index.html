@@ -3,49 +3,10 @@
 
 <head>
     <title>Tom Craven</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            font-size: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .project-list {
-            /* background-color: red; */
-            text-align: center;
-        }
-        .project-card {
-            /* background-color: blue; */
-            width: 340px;
-            overflow: hidden;
-            display: inline-block;
-            margin-bottom: 10px;
-            text-decoration: none;
-        }
-        .project-image {
-            background-color: #CCC;
-            border-radius: 20px;
-            margin: 10px;
-            margin-bottom: 2px;
-            width: 320px;
-            height: 198px;
-            display: block;
-        }
-        .project-image-border {
-            border: solid 1px #CCC;
-        }
-        .project-name {
-            /* background-color: darkcyan; */
-            padding: 10px;
-            text-align: center;
-            color: #222;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- <div class="title"> -->
     <h1>
         Tom Craven's GitHub Projects
     </h1>
@@ -58,12 +19,16 @@
             </div>
         </div>
 
-        <div class="project-card">
+        <a
+            class="project-card"
+            href="vr-house-interior.html"
+            target="_blank"
+        >
             <img class="project-image" src="images/vr-house-interior.jpg" />
             <div class="project-name">
                 VR House Interior
             </div>
-        </div>
+        </a>
 
         <a
             class="project-card"

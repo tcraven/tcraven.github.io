@@ -1,49 +1,111 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello, WebVR! - A-Frame</title>
-    <meta name="description" content="Hello, WebVR! - A-Frame">
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
 
-      <a-assets>
-        <img id="texture_grass" src="textures/grass.png">
-      </a-assets>
+<head>
+    <title>Tom Craven</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .project-list {
+            /* background-color: red; */
+            text-align: center;
+        }
+        .project-card {
+            /* background-color: blue; */
+            width: 340px;
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+        .project-image {
+            background-color: #CCC;
+            border-radius: 20px;
+            margin: 10px;
+            margin-bottom: 2px;
+            width: 320px;
+            height: 198px;
+            display: block;
+        }
+        .project-image-border {
+            border: solid 1px #CCC;
+        }
+        .project-name {
+            /* background-color: darkcyan; */
+            padding: 10px;
+            text-align: center;
+            color: #222;
+        }
+    </style>
+</head>
 
-      <a-box
-        position="-1 0.5 -3"
-        rotation="0 45 0"
-        color="#4CC3D9"
-        src="#texture_grass"
-        shadow
-      ></a-box>
+<body>
+    <!-- <div class="title"> -->
+    <h1>
+        Tom Craven's GitHub Projects
+    </h1>
+    <div class="project-list">
 
-      <a-sphere
-        position="0 1.25 -5"
-        radius="1.25"
-        color="#EF2D5E"
-        shadow
-      ></a-sphere>
-      
-      <a-cylinder
-        position="1 0.75 -3"
-        radius="0.5"
-        height="1.5"
-        color="#FFC65D"
-        shadow
-      ></a-cylinder>
+        <div class="project-card">
+            <img class="project-image" src="images/photo-shapes.jpg" />
+            <div class="project-name">
+                Photo Shapes
+            </div>
+        </div>
 
-      <a-plane
-        position="0 0 -4"
-        rotation="-90 0 0"
-        width="4"
-        height="4"
-        color="#7BC8A4"
-        shadow
-      ></a-plane>
+        <div class="project-card">
+            <img class="project-image" src="images/vr-house-interior.jpg" />
+            <div class="project-name">
+                VR House Interior
+            </div>
+        </div>
 
-    </a-scene>
-  </body>
+        <a
+            class="project-card"
+            href="https://tcraven.github.io/dymaxion/"
+            target="_blank"
+        >
+            <img class="project-image" src="images/dymaxion-map.jpg" />
+            <div class="project-name">
+                Dymaxion Map Projection
+            </div>
+        </a>
+
+        <div class="project-card">
+            <div class="project-image"></div>
+            <div class="project-name">
+                Electron Diff Tool
+            </div>
+        </div>
+
+        <a
+            class="project-card"
+            href="https://tcraven.github.io/prime-diagrams/"
+            target="_blank"
+        >
+            <img class="project-image project-image-border" src="images/prime-diagrams.jpg" />
+            <div class="project-name">
+                Prime Diagrams
+            </div>
+        </a>
+
+        <a
+            class="project-card"
+            href="https://tcraven.github.io/zelda-game/"
+            target="_blank"
+        >
+            <img class="project-image" src="images/zelda-game.jpg" />
+            <div class="project-name">
+                Zelda Game
+            </div>
+        </a>
+
+    </div>
+</body>
+
 </html>

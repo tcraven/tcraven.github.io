@@ -63,3 +63,11 @@ blockquote {
     padding: 5px;
     font-size: 18px;
 }
+.image-gallery-container {
+    border: solid 1px #000;
+    overflow: hidden;
+    width: 100%;
+}
+.image-gallery-container .image {
+    width: 32%;
+}

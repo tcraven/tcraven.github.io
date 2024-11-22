@@ -71,3 +71,9 @@ blockquote {
 .image-gallery-container .image {
     width: 32%;
 }
+.logo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 305px;
+}
